@@ -1,10 +1,10 @@
 package com.repository;
 
 import com.model.AppRole;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IAppRoleRepository extends JpaRepository<AppRole, Long> {
+public interface IAppRoleRepository extends CrudRepository<AppRole, Long> {
     AppRole findByName(String name);
 }
