@@ -13,4 +13,8 @@ public class Income {
     private Long id;
     private double salary;
     private double bonus;
+
+    public double getIncome() {
+        return salary+bonus;
+    }
 }

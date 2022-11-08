@@ -1,7 +1,6 @@
 package com.model.trainer;
 
 import com.model.AppUser;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Date;
