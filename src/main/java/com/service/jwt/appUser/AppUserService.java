@@ -42,7 +42,8 @@ public class AppUserService implements IAppUserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = appUserRepository.findByName(username);
-        return new User(appUser.getName(), appUser.getPassword(), (Collection<? extends GrantedAuthority>) appUser.getRoleSet());
+//        return new User(appUser.getName(), appUser.getPassword(), (Collection<? extends GrantedAuthority>) appUser.getRoleSet());
+        return null;
     }
 
     @Override
