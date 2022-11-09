@@ -1,6 +1,6 @@
-package com.repository;
+package com.repository.jwt;
 
-import com.model.AppUser;
+import com.model.jwt.AppUser;
 import com.model.DTO.ICountRole;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

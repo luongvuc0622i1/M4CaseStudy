@@ -1,6 +1,6 @@
 package com.model.trainer;
 
-import com.model.AppUser;
+import com.model.jwt.AppUser;
 
 import javax.persistence.*;
 import java.util.Date;

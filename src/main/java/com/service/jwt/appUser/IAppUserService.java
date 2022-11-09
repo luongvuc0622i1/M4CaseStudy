@@ -1,6 +1,6 @@
-package com.service.appUser;
+package com.service.jwt.appUser;
 
-import com.model.AppUser;
+import com.model.jwt.AppUser;
 import com.model.DTO.ICountRole;
 import com.service.IGeneralService;
 import org.springframework.security.core.userdetails.UserDetails;

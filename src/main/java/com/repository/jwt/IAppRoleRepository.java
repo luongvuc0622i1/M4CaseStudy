@@ -1,6 +1,6 @@
-package com.repository;
+package com.repository.jwt;
 
-import com.model.AppRole;
+import com.model.jwt.AppRole;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

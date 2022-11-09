@@ -1,8 +1,8 @@
-package com.service.appUser;
+package com.service.jwt.appUser;
 
-import com.model.AppUser;
+import com.model.jwt.AppUser;
 import com.model.DTO.ICountRole;
-import com.repository.IAppUserRepository;
+import com.repository.jwt.IAppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
