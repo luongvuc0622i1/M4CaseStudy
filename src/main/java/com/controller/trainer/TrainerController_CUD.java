@@ -17,6 +17,15 @@ public class TrainerController_CUD {
     private ITrainerRepository trainerRepository;
     @Autowired
     private ITrainerService_CUD trainerService_cud;
+    @RequestMapping(method = RequestMethod.GET,value = "/{id}")
+    public ResponseEntity<Trainer> findTrainerById(@PathVariable Long id){
+        Optional<Trainer> trainerOptional=trainerService_cud.findById(id);
+        if(!trainerOptional.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(trainerOptional.get(),HttpStatus.OK);
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Trainer> createTrainer(@RequestBody Trainer trainer){
         return new ResponseEntity<>(trainerService_cud.save(trainer), HttpStatus.CREATED);
