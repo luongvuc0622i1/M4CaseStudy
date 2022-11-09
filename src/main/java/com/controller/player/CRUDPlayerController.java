@@ -3,10 +3,16 @@ package com.controller.player;
 import com.model.player.Player;
 import com.service.player.IPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +21,12 @@ import java.util.Optional;
 @RequestMapping("/player")
 public class CRUDPlayerController {
     @Autowired
+    private ServletContext servletContext;
+
+    @Value("${upload_file_avatar}")
+    private String upload_file_avatar;
+
+    @Autowired
     private IPlayerService iPlayerService;
 
     @GetMapping("/findAllPlayer")
@@ -22,10 +34,29 @@ public class CRUDPlayerController {
         List<Player> players = (List<Player>) iPlayerService.findAll();
         return new ResponseEntity<>(players, HttpStatus.OK);
     }
+//
+//    @PostMapping("/create")
+//    public ResponseEntity<Player> createPlayer(@RequestBody Player player) {
+//        return new ResponseEntity<>(iPlayerService.save(player), HttpStatus.OK);
+//    }
 
-    @PostMapping("/create")
-    public ResponseEntity<Player> createPlayer(@RequestBody Player player) {
-        return new ResponseEntity<>(iPlayerService.save(player), HttpStatus.OK);
+    @PostMapping("/player/create")
+    public ResponseEntity<Player> addPlayer(@ModelAttribute("player") Player player, @ModelAttribute("avaFile") MultipartFile avaFile) {
+        String path = servletContext.getRealPath("/");
+        System.out.println("path: "+ path);
+        if (avaFile != null) {
+            String avaFileName = avaFile.getOriginalFilename();
+            try {
+                FileCopyUtils.copy(avaFile.getBytes(), new File(upload_file_avatar + avaFileName));
+                player.setImage("/image/" + avaFileName);
+            } catch (IOException ex) {
+                player.setImage("image/Error");
+                System.out.println("Loi khi upload File");
+                ex.printStackTrace();
+            }
+        }
+        iPlayerService.save(player);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/player/edit/{id}")
