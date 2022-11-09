@@ -1,13 +1,15 @@
 package com.model.trainer;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "income")
-public class Income {
+@NoArgsConstructor
+@Table(name = "trainerIncome")
+public class TrainerIncome {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
