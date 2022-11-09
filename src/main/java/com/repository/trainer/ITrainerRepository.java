@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
 public interface ITrainerRepository extends PagingAndSortingRepository<Trainer, Long> {
     Page<Trainer> findTrainerByNameContaining(String name,Pageable pageable);
 
-    @Query(nativeQuery = true, value = "select * , (trainer_income.salary + trainer_income.bonus) as income from trainer join trainer_income on trainer.income_id = trainer_income.id order by income ASC ;")
+    @Query("select t from Trainer t join TrainerIncome ti on t.income.id = ti.id order by (ti.salary + ti.bonus) ASC")
     Page<Trainer> sortTrainerSalaryAsc(Pageable pageable);
 
-    @Query(nativeQuery = true, value = "select * , (trainer_income.salary + trainer_income.bonus) as income from trainer join trainer_income on trainer.income_id = trainer_income.id order by income DESC ;")
+    @Query("select t from Trainer t join TrainerIncome ti on t.income.id = ti.id order by (ti.salary + ti.bonus) DESC")
     Page<Trainer> sortTrainerSalaryDesc(Pageable pageable);
 }
