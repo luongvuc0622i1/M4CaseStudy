@@ -44,6 +44,7 @@ public class AppUserService implements IAppUserService, UserDetailsService {
         AppUser appUser = appUserRepository.findByName(username);
 //        return new User(appUser.getName(), appUser.getPassword(), (Collection<? extends GrantedAuthority>) appUser.getRoleSet());
         return null;
+        //###
     }
 
     @Override
