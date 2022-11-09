@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class PlayerService implements IPlayerService{
+public class PlayerService implements IPlayerService {
 
     @Autowired
     private IPlayerRepository playerRepository;
@@ -52,22 +52,42 @@ public class PlayerService implements IPlayerService{
 
     @Override
     public Iterable<Position> findAllPosition() {
-        return null;
+        return positionRepository.findAll();
     }
 
     @Override
     public Iterable<Performance> findAllPerformance() {
-        return null;
+        return performanceRepository.findAll();
     }
 
     @Override
     public Iterable<Status> findAllStatus() {
-        return null;
+        return statusRepository.findAll();
     }
 
     @Override
     public Iterable<Player> findAllByName(String name) {
-        return null;
+        return playerRepository.findAllByNameContaining(name);
+    }
+
+    @Override
+    public Page<Player> findPlayerByNameContaining(String name, Pageable pageable) {
+        return playerRepository.findPlayerByNameContaining(name, pageable);
+    }
+
+    @Override
+    public Iterable<Player> sortPlayerSalaryDesc() {
+        return playerRepository.sortPlayerSalaryDesc();
+    }
+
+    @Override
+    public Iterable<Player> sortPlayerSalaryAsc() {
+        return playerRepository.sortPlayerSalaryAsc();
+    }
+
+    @Override
+    public Player findPlayerMaxSalary() {
+        return playerRepository.findPlayerMaxSalary();
     }
 
     @Override
