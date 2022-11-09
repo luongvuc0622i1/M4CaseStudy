@@ -8,11 +8,9 @@ import org.springframework.data.domain.Pageable;
 public interface ITrainerService_RS extends IGeneralService<Trainer> {
     Page<Trainer> findAllPage(Pageable pageable);
 
-//    Page<Trainer> findTrainerByRoleContaining(String role, Pageable pageable);
-//
-//    Iterable<Trainer> sortTrainerSalaryAsc();
-//
-//    Iterable<Trainer> sortTrainerSalaryDesc();
+    Page<Trainer> sortTrainerSalaryAsc(Pageable pageable);
+
+    Page<Trainer> sortTrainerSalaryDesc(Pageable pageable);
 
     Page<Trainer> findTrainerByNameContaining(String name,Pageable pageable);
 }

@@ -39,6 +39,16 @@ public class TrainerService_RS implements ITrainerService_RS {
     }
 
     @Override
+    public Page<Trainer> sortTrainerSalaryAsc(Pageable pageable) {
+        return trainerRepository.sortTrainerSalaryAsc(pageable);
+    }
+
+    @Override
+    public Page<Trainer> sortTrainerSalaryDesc(Pageable pageable) {
+        return trainerRepository.sortTrainerSalaryDesc(pageable);
+    }
+
+    @Override
     public Page<Trainer> findTrainerByNameContaining(String name, Pageable pageable) {
         return trainerRepository.findTrainerByNameContaining(name, pageable);
     }

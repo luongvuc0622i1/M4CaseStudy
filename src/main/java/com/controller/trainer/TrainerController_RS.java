@@ -37,12 +37,23 @@ public class TrainerController_RS {
         return new ResponseEntity<>(trainers, HttpStatus.OK);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/page/sortAsc")
+    public ResponseEntity<Page<Trainer>> sortCoachBySalaryAsc(@PageableDefault(value = 2) Pageable pageable){
+        Page<Trainer> trainers = trainerService.sortTrainerSalaryAsc(pageable);
+        return new ResponseEntity<>(trainers, HttpStatus.OK);
+    }
+    @GetMapping("/page/sortDesc")
+    public ResponseEntity<Page<Trainer>> sortCoachBySalaryDesc(@PageableDefault(value = 2) Pageable pageable){
+        Page<Trainer> trainers = trainerService.sortTrainerSalaryDesc(pageable);
+        return new ResponseEntity<>(trainers, HttpStatus.OK);
+    }
+
+    @GetMapping("/searchByName")
     public ResponseEntity<Iterable<Trainer>> searchByName(@PageableDefault(value = 2) @RequestParam Optional<String> name, Pageable pageable){
         Page<Trainer> trainers = trainerService.findAllPage(pageable);
         if (trainers.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else
+        }
         if (name.isPresent()) {
             return new ResponseEntity<>(trainerService.findTrainerByNameContaining(name.get(), pageable), HttpStatus.OK);
         }
