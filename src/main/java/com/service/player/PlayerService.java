@@ -72,6 +72,6 @@ public class PlayerService implements IPlayerService{
 
     @Override
     public Page<Player> findPage(Pageable pageable) {
-        return null;
+        return playerRepository.findAll(pageable);
     }
 }
