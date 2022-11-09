@@ -3,11 +3,9 @@ package com.controller.player;
 import com.model.player.Player;
 import com.service.player.IPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Value;
-=======
 import org.springframework.core.env.Environment;
->>>>>>> a02b66721d2c3571bc70c54f03d3a348458c065e
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
