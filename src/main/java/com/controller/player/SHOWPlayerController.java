@@ -32,7 +32,7 @@ public class SHOWPlayerController {
         return new ResponseEntity<>(players, HttpStatus.OK);
     }
 
-    @GetMapping("/pagePlayer")
+    @GetMapping("/page-player")
     public ResponseEntity<Page<Player>> showPagePlayer(@PageableDefault(value = 5)Pageable pageable) {
         Page<Player> players = playerService.findPage(pageable);
         if (!players.iterator().hasNext()) {
@@ -74,8 +74,8 @@ public class SHOWPlayerController {
     }
 
     @GetMapping("/search-player")
-    public ResponseEntity<Iterable<Player>> getPlayerByName(@RequestParam("search") String search) {
-        Iterable<Player> players = playerService.findAllByName(search);
+    public ResponseEntity<Iterable<Player>> getPlayerByName(@RequestParam("name") String name) {
+        Iterable<Player> players = playerService.findAllByName(name);
         if (!players.iterator().hasNext()) {
             new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -98,7 +98,7 @@ public class SHOWPlayerController {
 
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search-page-player")
     public ResponseEntity<Iterable<Player>> searchByName(@PageableDefault(value = 2) @RequestParam Optional<String> name,Pageable pageable){
         Page<Player> players = playerService.findPage(pageable);
         if (players.isEmpty()) {
