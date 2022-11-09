@@ -5,15 +5,18 @@ import com.repository.trainer.ITrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TrainerService_H implements ITrainerService_H {
+public class TrainerService_CUD implements ITrainerService_CUD {
+//    public static List<Trainer> trainerList=new ArrayList<Trainer>();
     @Autowired
     private ITrainerRepository trainerRepository;
     @Override
     public Iterable<Trainer> findAll() {
-        return trainerRepository.findAll();
+        return null;
     }
 
     @Override
@@ -30,4 +33,9 @@ public class TrainerService_H implements ITrainerService_H {
     public void remove(Long id) {
         trainerRepository.deleteById(id);
     }
+
+//    @Override
+//    public void add(Trainer trainer) {
+//        trainerRepository.save(trainer);
+//    }
 }

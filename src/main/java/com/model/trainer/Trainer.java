@@ -1,5 +1,6 @@
 package com.model.trainer;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.model.jwt.AppUser;
 import lombok.Data;
 import lombok.NoArgsConstructor;
