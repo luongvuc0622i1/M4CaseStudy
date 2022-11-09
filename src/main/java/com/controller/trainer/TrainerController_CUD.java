@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/football")
+@RequestMapping("/trainer")
 public class TrainerController_CUD {
     @Autowired
     private ITrainerRepository trainerRepository;
@@ -21,7 +21,7 @@ public class TrainerController_CUD {
     public ResponseEntity<Trainer> createTrainer(@RequestBody Trainer trainer){
         return new ResponseEntity<>(trainerService_cud.save(trainer), HttpStatus.CREATED);
     }
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT,value = "/{id}")
     public ResponseEntity<Trainer> updateTrainer(@PathVariable Long id,@RequestBody Trainer trainer){
         Optional<Trainer> trainerOptional=trainerService_cud.findById(id);
         if(!trainerOptional.isPresent()){
@@ -29,5 +29,14 @@ public class TrainerController_CUD {
         }
         trainer.setId(trainerOptional.get().getId());
         return new ResponseEntity<>(trainerService_cud.save(trainer),HttpStatus.OK);
+    }
+    @RequestMapping(method =RequestMethod.DELETE,value = "/{id}")
+    public ResponseEntity<Trainer> deleteTrainer(@PathVariable Long id){
+        Optional<Trainer> trainerOptional=trainerService_cud.findById(id);
+        if(!trainerOptional.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        trainerService_cud.remove(id);
+        return new ResponseEntity<>(trainerOptional.get(),HttpStatus.NO_CONTENT);
     }
 }
