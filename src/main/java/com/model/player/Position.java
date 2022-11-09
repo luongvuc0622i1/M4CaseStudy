@@ -13,5 +13,5 @@ public class Position{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double name;
+    private String name;
 }

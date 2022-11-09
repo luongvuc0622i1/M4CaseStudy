@@ -12,5 +12,6 @@ public class Performance {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
-        private double rank;
+
+        private String ranking;
 }

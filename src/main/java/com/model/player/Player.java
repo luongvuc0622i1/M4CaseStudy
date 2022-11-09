@@ -49,4 +49,7 @@ public class Player {
     @JoinColumn(name = "status_id")
     private Status status;
 
+    public double getBMI() {
+        return weight / (height * height);
+    }
 }
