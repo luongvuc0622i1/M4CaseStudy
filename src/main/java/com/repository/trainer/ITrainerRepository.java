@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ITrainerRepository extends PagingAndSortingRepository<Trainer, Long> {
 //    Page<Trainer> findTrainerByRoleContaining(String role, Pageable pageable);
-//    Page<Trainer> findTrainerByNameContaining(String name,Pageable pageable);
+    Page<Trainer> findTrainerByNameContaining(String name,Pageable pageable);
 
 //    @Query(nativeQuery = true, value = "select * from trainer order by salary ASC ;")
 //    Iterable<Trainer> sortTrainerSalaryAsc();

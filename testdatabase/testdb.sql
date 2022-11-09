@@ -1,7 +1,7 @@
 CREATE DATABASE casestudy4;
--- SELECT * FROM casestudy4.trainer;
+SELECT * FROM user_role;
 USE casestudy4;
-INSERT INTO app_user VALUES 
+INSERT INTO user VALUES
 							(1,"admin", "123456"),
                             (2,"trainer", "123456"),
                             (3,"player", "123456"),
@@ -49,3 +49,9 @@ INSERT INTO player VALUES
 INSERT INTO trainer VALUES		
 								(1, "Việt Name", "Ảnh cv", "1990-2-2", "Pắc Hăng Say", "2", 1),
                                 (2, "Việt Lame", "Ảnh CV", "1991-3-3", "ADMIB", "1", "1");
+                                
+INSERT INTO user_role VALUES	(1, 1),
+								(2, 2),
+								(3, 3),
+								(4, 3);
+								
