@@ -29,9 +29,6 @@ public class CRUDPlayerController {
 
     @Autowired
     private IPlayerService iPlayerService;
-    @Autowired
-    private Environment env;
-
     @GetMapping("/findAllPlayer")
     public ResponseEntity<Iterable<Player>> findAllPlayer() {
         List<Player> players = (List<Player>) iPlayerService.findAll();
