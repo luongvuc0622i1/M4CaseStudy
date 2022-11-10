@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/player")
+@RequestMapping("/admin/player")
 public class SHOWPlayerController {
 
     @Autowired

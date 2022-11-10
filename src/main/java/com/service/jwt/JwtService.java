@@ -32,7 +32,7 @@ public class JwtService {
                 .signWith(SignatureAlgorithm.HS512,KEY_UNLOCK_TOKEN)
                 .compact();
     }
-    // ghi log for token
+    // ghi logger for token
     public boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(KEY_UNLOCK_TOKEN).parseClaimsJws(token);
