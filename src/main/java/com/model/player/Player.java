@@ -52,4 +52,9 @@ public class Player {
     public double getBMI() {
         return weight / (height * height);
     }
+
+    public Player(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
 }

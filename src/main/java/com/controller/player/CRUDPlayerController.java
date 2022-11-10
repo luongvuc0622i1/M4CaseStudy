@@ -1,5 +1,6 @@
 package com.controller.player;
 
+import com.model.DTO.PlayerDto;
 import com.model.player.Player;
 import com.service.player.IPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,12 @@ public class CRUDPlayerController {
     @Autowired
     private ServletContext servletContext;
 
-    @Value("${upload_file_avatar}")
-    private String upload_file_avatar;
+
+//    @Autowired
+//    Environment env;
+
+//    @Value("${upload_file_avatar}")
+//    private String upload_file_avatar;
 
     @Autowired
     private IPlayerService iPlayerService;
@@ -40,24 +45,21 @@ public class CRUDPlayerController {
 //        return new ResponseEntity<>(iPlayerService.save(player), HttpStatus.OK);
 //    }
 
-    @PostMapping("/player/create")
-    public ResponseEntity<Player> addPlayer(@ModelAttribute("player") Player player, @ModelAttribute("avaFile") MultipartFile avaFile) {
-        String path = servletContext.getRealPath("/");
-        System.out.println("path: "+ path);
-        if (avaFile != null) {
-            String avaFileName = avaFile.getOriginalFilename();
-            try {
-                FileCopyUtils.copy(avaFile.getBytes(), new File(upload_file_avatar + avaFileName));
-                player.setImage("/image/" + avaFileName);
-            } catch (IOException ex) {
-                player.setImage("image/Error");
-                System.out.println("Loi khi upload File");
-                ex.printStackTrace();
-            }
-        }
-        iPlayerService.save(player);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+//    @PostMapping("/createAPI")
+//    public ResponseEntity<Player> create(@ModelAttribute PlayerDto player){
+//        Player player1 = new Player(player.getName(), player.getAddress());
+//        MultipartFile multipartFile = player.getImage();
+//        String fileName = multipartFile.getOriginalFilename();
+//        String fileUpload = env.getProperty("upload.path").toString();
+//        try {
+//            FileCopyUtils.copy(player.getImage().getBytes(), new File(fileUpload + fileName));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        player1.setImage(fileName);
+//        iPlayerService.save(player1);
+//        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+//    }
 
     @PutMapping("/player/edit/{id}")
     public ResponseEntity<Player> editPlayer(@PathVariable Long id, @RequestBody Player player) {
