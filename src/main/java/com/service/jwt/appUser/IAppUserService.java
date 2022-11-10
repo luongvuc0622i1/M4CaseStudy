@@ -6,7 +6,7 @@ import com.service.IGeneralService;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public interface IAppUserService extends IGeneralService<AppUser> {
-    UserDetails loadUserByUsername(String username);
+    UserDetails loadUserByUsername(String username); //
 
     AppUser findUserByName(String username);
 
