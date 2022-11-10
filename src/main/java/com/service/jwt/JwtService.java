@@ -2,8 +2,9 @@ package com.service.jwt;
 
 
 import com.service.jwt.appUser.IAppUserService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -13,6 +14,7 @@ import java.util.Date;
 
 @Service
 public class JwtService {
+    public static final Logger logger = LoggerFactory.getLogger(JwtService.class);
     @Autowired
     private IAppUserService appUserService;
     // key để mã hóa token.
@@ -29,6 +31,24 @@ public class JwtService {
                 .setExpiration(new Date(new Date().getTime() + EXPIRE_TIME*1000))
                 .signWith(SignatureAlgorithm.HS512,KEY_UNLOCK_TOKEN)
                 .compact();
+    }
+    // ghi log for token
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser().setSigningKey(KEY_UNLOCK_TOKEN).parseClaimsJws(token);
+            return true;
+        } catch (SignatureException e) {
+            logger.error("Invalid JWT Signature -> Message: {}", e);
+        } catch (MalformedJwtException e) {
+            logger.error("Invalid format token -> Message: {}", e);
+        } catch (ExpiredJwtException e) {
+            logger.error("Expired JWT token -> Message: {}", e);
+        } catch (UnsupportedJwtException e) {
+            logger.error("Unsupported JWT token -> Message: {}", e);
+        } catch (IllegalArgumentException e) {
+            logger.error("JWT claims string is empty -> Message: {}", e);
+        }
+        return false;
     }
     // Lấy tên user từ token:
     public String getUsernameFromJwtToken(String token){
