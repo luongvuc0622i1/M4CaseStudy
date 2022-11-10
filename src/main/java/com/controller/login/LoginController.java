@@ -49,7 +49,7 @@ public class LoginController {
             String token = jwtService.createToken(authentication);
             AppUser appUser1 = userService.findUserByName(appUser.getName());
             UserToken userToken = new UserToken(appUser1.getId(), appUser.getName(), token, appUser1.getRoleSet());
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(userToken, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             System.out.println("Login Fail!!!!!");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

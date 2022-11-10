@@ -1,7 +1,8 @@
 package com.service.jwt.appUser;
 
-import com.model.jwt.AppUser;
+
 import com.model.DTO.ICountRole;
+import com.model.jwt.AppUser;
 import com.repository.jwt.IAppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,8 +43,8 @@ public class AppUserService implements IAppUserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = appUserRepository.findByName(username);
-//        return new User(appUser.getName(), appUser.getPassword(), (Collection<? extends GrantedAuthority>) appUser.getRoleSet());
-        return null;
+        return new User(appUser.getName(), appUser.getPassword(), appUser.getRoleSet());
+//        return null;
         //###
     }
 
