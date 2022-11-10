@@ -33,7 +33,7 @@ public class SHOWPlayerController {
     }
 
     @GetMapping("/page-player")
-    public ResponseEntity<Page<Player>> showPagePlayer(@PageableDefault(value = 5)Pageable pageable) {
+    public ResponseEntity<Page<Player>> showPagePlayer(@PageableDefault(value = 5) Pageable pageable) {
         Page<Player> players = playerService.findPage(pageable);
         if (!players.iterator().hasNext()) {
             new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -44,8 +44,9 @@ public class SHOWPlayerController {
     @GetMapping("/find-player-by-id/{id}")
     public ResponseEntity<Player> getPlayerById(@PathVariable Long id) {
         Optional<Player> playerOptional = playerService.findById(id);
-        return playerOptional.map(player -> new ResponseEntity<>(player,HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return playerOptional.map(player -> new ResponseEntity<>(player, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
     @GetMapping("/position")
     public ResponseEntity<Iterable<Position>> getPosition() {
         Iterable<Position> playerPositions = playerService.findAllPosition();
@@ -82,30 +83,58 @@ public class SHOWPlayerController {
         return new ResponseEntity<>(players, HttpStatus.OK);
     }
 
-    @GetMapping("/sort-salary-asc")
-    public ResponseEntity<Iterable<Player>> sortPlayerSalaryAsc() {
-        Iterable<Player> players = playerService.sortPlayerSalaryAsc();
-//        if (!players.iterator().hasNext()) {
-//            new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @GetMapping("/sort-income-asc")
+    public ResponseEntity<Page<Player>> sortPlayerSalaryAsc(@PageableDefault(value = 5) Pageable pageable) {
+        Page<Player> players = playerService.sortPlayerSalaryAsc(pageable);
+        if (!players.iterator().hasNext()) {
+            new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
 
         return new ResponseEntity<>(players, HttpStatus.OK);
     }
 
-    @GetMapping("/sort-salary-desc")
-    public ResponseEntity<Iterable<Player>> sortPlayerSalaryDesc() {
-        Iterable<Player> players = playerService.sortPlayerSalaryDesc();
+    @GetMapping("/sort-income-desc")
+    public ResponseEntity<Page<Player>> sortPlayerSalaryDesc(@PageableDefault(value = 5) Pageable pageable) {
+        Page<Player> players = playerService.sortPlayerSalaryDesc(pageable);
+        if (!players.iterator().hasNext()) {
+            new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         return new ResponseEntity<>(players, HttpStatus.OK);
 
     }
 
-    @GetMapping("/search-page-player")
-    public ResponseEntity<Iterable<Player>> searchByName(@PageableDefault(value = 2) @RequestParam Optional<String> name,Pageable pageable){
+    @GetMapping("/search-page-player/name")
+    public ResponseEntity<Iterable<Player>> searchByName(@PageableDefault(value = 5) @RequestParam Optional<String> name, Pageable pageable) {
         Page<Player> players = playerService.findPage(pageable);
         if (players.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         if (name.isPresent()) {
             return new ResponseEntity<>(playerService.findPlayerByNameContaining(name.get(), pageable), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(players, HttpStatus.OK);
+    }
+
+    @GetMapping("/search-page-player/position")
+    public ResponseEntity<Iterable<Player>> searchByPosition(@PageableDefault(value = 5) @RequestParam Optional<String> position, Pageable pageable) {
+        Page<Player> players = playerService.findPage(pageable);
+        if (players.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        if (position.isPresent()) {
+            return new ResponseEntity<>(playerService.findPlayerByPositionContaining(position.get(), pageable), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(players, HttpStatus.OK);
+    }
+
+    @GetMapping("/search-page-player/status")
+    public ResponseEntity<Iterable<Player>> searchByStatus(@PageableDefault(value = 5) @RequestParam Optional<String> status, Pageable pageable) {
+        Page<Player> players = playerService.findPage(pageable);
+        if (players.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        if (status.isPresent()) {
+            return new ResponseEntity<>(playerService.findPlayerByStatusContaining(status.get(), pageable), HttpStatus.OK);
         }
         return new ResponseEntity<>(players, HttpStatus.OK);
     }
