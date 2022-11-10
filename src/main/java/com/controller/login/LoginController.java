@@ -4,8 +4,10 @@ import com.repository.jwt.IAppRoleRepository;
 import com.service.jwt.appUser.IAppUserService;
 import com.service.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,7 +24,10 @@ public class LoginController {
     private IAppUserService userService;
 
     @Autowired
-    private IAppRoleRepository
+    private IAppRoleRepository appRoleRepository;
+
+    @PostMapping("/login")
+    public ResponseEntity<UserToken>
 
 
 }
