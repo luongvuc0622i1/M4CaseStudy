@@ -1,7 +1,7 @@
 package com.config.filter;
 
 import com.service.jwt.appUser.IAppUserService;
-import com.service.jwt.appUser.JwtService;
+import com.service.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

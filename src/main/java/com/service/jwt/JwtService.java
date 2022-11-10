@@ -1,6 +1,7 @@
-package com.service.jwt.appUser;
+package com.service.jwt;
 
 
+import com.service.jwt.appUser.IAppUserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
