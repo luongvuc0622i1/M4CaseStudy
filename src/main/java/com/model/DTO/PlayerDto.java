@@ -7,6 +7,7 @@ import com.model.player.Position;
 import com.model.player.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -20,6 +21,7 @@ public class PlayerDto {
 
     private String name;
 
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private Date dateOfBirth;
 
     private String address;
@@ -36,13 +38,10 @@ public class PlayerDto {
 
     private PlayerIncome playerIncome;
 
-    private String profile;
+    private MultipartFile profile;
 
     private MultipartFile image;
 
     private Status status;
-
-
-
 
 }
