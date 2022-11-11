@@ -2,6 +2,7 @@ package com.model.trainer;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.model.jwt.AppUser;
+import com.sun.tracing.dtrace.ArgsAttributes;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,4 +33,11 @@ public class Trainer {
     @ManyToOne(fetch = FetchType.EAGER)
     private AppUser appUser;
 
+    public Trainer(String name, Date dateOfBirth, String address, TrainerIncome income, AppUser appUser) {
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
+        this.income = income;
+        this.appUser = appUser;
+    }
 }
