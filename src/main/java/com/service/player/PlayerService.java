@@ -76,13 +76,23 @@ public class PlayerService implements IPlayerService {
     }
 
     @Override
-    public Iterable<Player> sortPlayerSalaryDesc() {
-        return playerRepository.sortPlayerSalaryDesc();
+    public Page<Player> sortPlayerSalaryDesc(Pageable pageable) {
+        return playerRepository.sortPlayerSalaryDesc(pageable);
     }
 
     @Override
-    public Iterable<Player> sortPlayerSalaryAsc() {
-        return playerRepository.sortPlayerSalaryAsc();
+    public Page<Player> sortPlayerSalaryAsc(Pageable pageable) {
+        return playerRepository.sortPlayerSalaryAsc(pageable);
+    }
+
+    @Override
+    public Page<Player> findPlayerByPositionContaining(String position, Pageable pageable) {
+        return playerRepository.findPlayerByPositionContaining(position, pageable);
+    }
+
+    @Override
+    public Page<Player> findPlayerByStatusContaining(String status, Pageable pageable) {
+        return playerRepository.findPlayerByStatusContaining(status, pageable);
     }
 
     @Override
