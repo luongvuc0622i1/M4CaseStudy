@@ -4,6 +4,7 @@ import com.model.player.Performance;
 import com.model.player.Player;
 import com.model.player.Position;
 import com.model.player.Status;
+import com.model.trainer.Trainer;
 import com.repository.player.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -102,6 +103,10 @@ public class PlayerService implements IPlayerService {
 
     @Override
     public Page<Player> findPage(Pageable pageable) {
+        return playerRepository.findAll(pageable);
+    }
+    @Override
+    public Page<Player> findAllPage(Pageable pageable) {
         return playerRepository.findAll(pageable);
     }
 }

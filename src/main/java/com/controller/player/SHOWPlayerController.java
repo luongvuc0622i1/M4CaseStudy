@@ -4,6 +4,7 @@ import com.model.player.Performance;
 import com.model.player.Player;
 import com.model.player.Position;
 import com.model.player.Status;
+import com.model.trainer.Trainer;
 import com.service.player.IPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -135,6 +136,18 @@ public class SHOWPlayerController {
         }
         if (status.isPresent()) {
             return new ResponseEntity<>(playerService.findPlayerByStatusContaining(status.get(), pageable), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(players, HttpStatus.OK);
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<Player>> displayPlayerPage(@PageableDefault(value = 2) @RequestParam Optional<String> name, Pageable pageable) {
+        Page<Player> players = playerService.findPage(pageable);
+        if (players.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        if (name.isPresent()) {
+            return new ResponseEntity<>(playerService.findPlayerByNameContaining(name.get(), pageable), HttpStatus.OK);
         }
         return new ResponseEntity<>(players, HttpStatus.OK);
     }
