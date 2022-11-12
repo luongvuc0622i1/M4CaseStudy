@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin("*")
@@ -42,19 +43,25 @@ public class TrainerController_CUD {
     public ResponseEntity<Trainer> createTrainer(@RequestBody Trainer trainer){
         return new ResponseEntity<>(trainerService_cud.save(trainer), HttpStatus.CREATED);
     }
-    @RequestMapping(method = RequestMethod.PUT,value = "/{id}")
-    public RedirectView createTrainer (@ModelAttribute TrainerForm playerDto) {
-        MultipartFile image = playerDto.getCvFile();
-        String imageName = image.getOriginalFilename();
-        try {
-            FileCopyUtils.copy(playerDto.getCvFile().getBytes(), new File(imageUpload + imageName));
-        } catch (IOException ex) {
-            ex.printStackTrace();
+    @RequestMapping(method = RequestMethod.PUT,value = "edit/{id}")
+    public ResponseEntity<Trainer> editTrain(@PathVariable Long id, @RequestBody Trainer trainer) {
+        Optional<Trainer> playerOptional = trainerService_cud.findById(id);
+        if (!playerOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        Trainer trainer = new Trainer(playerDto.getName(), playerDto.getDateOfBirth(), playerDto.getAddress(),
-                playerDto.getIncome(),playerDto.getAppUser());
-        trainerService_cud.save(trainer);
-        return new RedirectView("/trainer");
+//        trainer.setId(id);
+//        MultipartFile cvFile = trainer.getCvFile();
+//        String imageName = cvFile.getOriginalFilename();
+//        try {
+//            FileCopyUtils.copy(trainer.getCvFile().getBytes(), new File(imageUpload + imageName));
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+        Trainer trainer1 =new Trainer(trainer.getName(), trainer.getDateOfBirth(), trainer.getAddress(),
+                trainer.getIncome(), trainer.getAppUser());
+        //    String name, Date dateOfBirth, String address, TrainerIncome income, AppUser appUser
+        trainerService_cud.save(trainer1);
+        return new ResponseEntity<>(trainer1, HttpStatus.OK);
     }
     @RequestMapping(method =RequestMethod.DELETE,value = "/{id}")
     public ResponseEntity<Trainer> deleteTrainer(@PathVariable Long id){

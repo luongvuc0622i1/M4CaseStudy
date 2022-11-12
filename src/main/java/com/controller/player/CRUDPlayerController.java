@@ -51,6 +51,7 @@ public class CRUDPlayerController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         player.setId(id);
+
         playerService.save(player);
         return new ResponseEntity<>(player, HttpStatus.OK);
     }

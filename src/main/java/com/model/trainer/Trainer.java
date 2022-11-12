@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "trainer")
-public class Trainer {
+public class Trainer{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
