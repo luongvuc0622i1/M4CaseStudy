@@ -49,7 +49,7 @@ public class TrainerController_CUD {
         if (!playerOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-//        trainer.setId(id);
+        trainer.setId(id);
 //        MultipartFile cvFile = trainer.getCvFile();
 //        String imageName = cvFile.getOriginalFilename();
 //        try {
@@ -57,11 +57,11 @@ public class TrainerController_CUD {
 //        } catch (IOException ex) {
 //            ex.printStackTrace();
 //        }
-        Trainer trainer1 =new Trainer(trainer.getName(), trainer.getDateOfBirth(), trainer.getAddress(),
-                trainer.getIncome(), trainer.getAppUser());
+//        Trainer trainer1 =new Trainer(trainer.getName(), trainer.getDateOfBirth(), trainer.getAddress(),
+//                trainer.getIncome(), trainer.getAppUser());
         //    String name, Date dateOfBirth, String address, TrainerIncome income, AppUser appUser
-        trainerService_cud.save(trainer1);
-        return new ResponseEntity<>(trainer1, HttpStatus.OK);
+        trainerService_cud.save(trainer);
+        return new ResponseEntity<>(trainer, HttpStatus.OK);
     }
     @RequestMapping(method =RequestMethod.DELETE,value = "/{id}")
     public ResponseEntity<Trainer> deleteTrainer(@PathVariable Long id){
