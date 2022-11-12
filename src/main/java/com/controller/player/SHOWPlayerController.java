@@ -142,7 +142,7 @@ public class SHOWPlayerController {
 
     @GetMapping("/page")
     public ResponseEntity<Page<Player>> displayPlayerPage(@PageableDefault(value = 2) @RequestParam Optional<String> name, Pageable pageable) {
-        Page<Player> players = playerService.findPage(pageable);
+        Page<Player> players = playerService.findAllPage(pageable);
         if (players.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
