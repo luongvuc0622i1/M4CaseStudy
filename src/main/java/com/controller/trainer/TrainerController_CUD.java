@@ -4,8 +4,10 @@ import com.model.DTO.PlayerDto;
 import com.model.player.Player;
 import com.model.trainer.Trainer;
 import com.model.trainer.TrainerForm;
+import com.model.trainer.TrainerIncome;
 import com.repository.trainer.ITrainerRepository;
 import com.service.trainer.ITrainerService_CUD;
+import com.service.trainer.TrainerIncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -71,5 +73,26 @@ public class TrainerController_CUD {
         }
         trainerService_cud.remove(id);
         return new ResponseEntity<>(trainerOptional.get(),HttpStatus.NO_CONTENT);
+    }
+    @Autowired
+    private TrainerIncomeService trainerIncomeService;
+    @RequestMapping(method = RequestMethod.GET,value = "editIncome/{id}")
+    public ResponseEntity<TrainerIncome> findTrainerIncomeById(@PathVariable Long id){
+        Optional<TrainerIncome> trainerOptional=trainerIncomeService.findById(id);
+        if(!trainerOptional.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(trainerOptional.get(),HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT,value = "editIncome/{id}")
+    public ResponseEntity<TrainerIncome> editIncome(@PathVariable Long id, @RequestBody TrainerIncome trainer) {
+        Optional<TrainerIncome> trainerIncomeOptional = trainerIncomeService.findById(id);
+        if (!trainerIncomeOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        trainer.setId(id);
+        trainerIncomeService.save(trainer);
+        return new ResponseEntity<>(trainer, HttpStatus.OK);
     }
 }
