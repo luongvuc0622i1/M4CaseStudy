@@ -2,7 +2,10 @@ package com.controller.player;
 
 import com.model.DTO.PlayerDto;
 import com.model.player.*;
+import com.model.trainer.TrainerIncome;
+import com.service.player.IPlayerIncomeService;
 import com.service.player.IPlayerService;
+import com.service.trainer.TrainerIncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -86,4 +89,27 @@ public class CRUDPlayerController {
         playerService.save(player);
         return new RedirectView("/player/page-player");
     }
+
+    @Autowired
+    private IPlayerIncomeService playerIncomeService;
+    @RequestMapping(method = RequestMethod.GET,value = "editIncome/{id}")
+    public ResponseEntity<PlayerIncome> findPlayerIncomeById(@PathVariable Long id){
+        Optional<PlayerIncome> playerOptional= playerIncomeService.findById(id);
+        if(!playerOptional.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(playerOptional.get(),HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT,value = "editIncome/{id}")
+    public ResponseEntity<PlayerIncome> editIncome(@PathVariable Long id, @RequestBody PlayerIncome player) {
+        Optional<PlayerIncome> playerIncomeOptional = playerIncomeService.findById(id);
+        if (!playerIncomeOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        player.setId(id);
+        playerIncomeService.save(player);
+        return new ResponseEntity<>(player, HttpStatus.OK);
+    }
+
 }
